@@ -4,6 +4,6 @@ namespace ConstructionSite\Rooms;
 
 class Balcony extends AbstractRoom
 {
-    protected static $isMain = false;
-    protected static $type = 'balcony';
+    protected static bool $isMain = false;
+    protected static string $type = 'balcony';
 }

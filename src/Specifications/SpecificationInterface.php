@@ -6,5 +6,5 @@ use ConstructionSite\Flats\FlatInterface;
 
 interface SpecificationInterface
 {
-    public function isSatisfiedBy(FlatInterface $flat);
+    public function isSatisfiedBy(FlatInterface $flat): bool;
 }

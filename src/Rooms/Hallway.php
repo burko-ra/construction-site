@@ -4,6 +4,6 @@ namespace ConstructionSite\Rooms;
 
 class Hallway extends AbstractRoom
 {
-    protected static $isMain = false;
-    protected static $type = 'hallway';
+    protected static bool $isMain = false;
+    protected static string $type = 'hallway';
 }

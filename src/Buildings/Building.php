@@ -3,15 +3,19 @@
 namespace ConstructionSite\Buildings;
 
 use ConstructionSite\Levels\LevelFactory;
+use ConstructionSite\Levels\LevelInterface;
 use SplObjectStorage;
 use SplObserver;
 use SplSubject;
 
-class Building implements BuildingInterface, GetAreaInterface, SplSubject
+class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface, SplSubject
 {
-    private $levelFactory;
+    private LevelFactory $levelFactory;
+    /**
+     * @var array<string,LevelInterface&GetAreaInterface&GetFlatsInterface>
+     */
     private $levels;
-    private $pricePerSquareMeter;
+    private float $pricePerSquareMeter;
     private SplObjectStorage $observers;
 
     public function __construct(LevelFactory $levelFactory)
@@ -20,14 +24,14 @@ class Building implements BuildingInterface, GetAreaInterface, SplSubject
         $this->observers = new SplObjectStorage();
     }
 
-    public function addLevel()
+    public function addLevel(): void
     {
         $level = $this->levelFactory->createLevel();
         $levelId = $level->getId();
         $this->levels[$levelId] = $level;
     }
 
-    public function getArea()
+    public function getArea(): int
     {
         return array_reduce(
             $this->levels,
@@ -36,12 +40,18 @@ class Building implements BuildingInterface, GetAreaInterface, SplSubject
         );
     }
 
+    /**
+     * @return array<string,LevelInterface&GetAreaInterface&GetFlatsInterface>
+     */
     public function getLevels()
     {
         return $this->levels;
     }
 
-    public function getFlats($mainRoomCount = null)
+    /**
+     * @return array<string,FlatInterface>
+     */
+    public function getFlats(int $mainRoomCount = null)
     {
         return array_reduce(
             $this->levels,
@@ -50,12 +60,12 @@ class Building implements BuildingInterface, GetAreaInterface, SplSubject
         );
     }
 
-    public function getLevelById($id)
+    public function getLevelById(string $id): LevelInterface
     {
         return $this->levels[$id];
     }
 
-    public function setPricePerSquareMeter($pricePerSquareMeter)
+    public function setPricePerSquareMeter(float $pricePerSquareMeter): void
     {
         $this->pricePerSquareMeter = $pricePerSquareMeter;
         array_map(
@@ -65,12 +75,12 @@ class Building implements BuildingInterface, GetAreaInterface, SplSubject
         $this->notify();
     }
 
-    public function getPricePerSquareMeter()
+    public function getPricePerSquareMeter(): float
     {
         return $this->pricePerSquareMeter;
     }
 
-    public function getFlatCount($mainRoomCount = null)
+    public function getFlatCount(int $mainRoomCount = null): int
     {
         return count($this->getFlats($mainRoomCount));
     }
@@ -93,6 +103,9 @@ class Building implements BuildingInterface, GetAreaInterface, SplSubject
         }
     }
 
+    /**
+     * @return SplObjectStorage
+     */
     public function getObservers()
     {
         return $this->observers;

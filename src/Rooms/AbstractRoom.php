@@ -8,8 +8,8 @@ abstract class AbstractRoom implements RoomInterface, GetAreaInterface
 {
     private $area;
     private $id;
-    protected static $isMain;
-    protected static $type;
+    protected static bool $isMain;
+    protected static string $type;
     protected $pricePerSquareMeter;
 
     public function __construct($area)
@@ -18,32 +18,32 @@ abstract class AbstractRoom implements RoomInterface, GetAreaInterface
         $this->id = uniqid("room_");
     }
 
-    public function getArea()
+    public function getArea(): float
     {
         return $this->area;
     }
 
-    public function checkIsMain()
+    public function checkIsMain(): bool
     {
         return static::$isMain;
     }
 
-    public function getType()
+    public function getType(): string
     {
         return static::$type;
     }
 
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    public function setPricePerSquareMeter($pricePerSquareMeter)
+    public function setPricePerSquareMeter($pricePerSquareMeter): void
     {
         $this->pricePerSquareMeter = $pricePerSquareMeter;
     }
 
-    public function getTotalPrice()
+    public function getTotalPrice(): float
     {
         if (!$this->pricePerSquareMeter) {
             throw new \Exception("Price per square meter is not set. Cannot calculate the total price.");

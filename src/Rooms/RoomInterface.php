@@ -4,15 +4,15 @@ namespace ConstructionSite\Rooms;
 
 interface RoomInterface
 {
-    public function checkIsMain();
+    public function checkIsMain(): bool;
 
-    public function getType();
+    public function getType(): string;
 
-    public function getId();
+    public function getId(): string;
 
-    public function getArea();
+    public function getArea(): float;
 
-    public function setPricePerSquareMeter($pricePerSquareMeter);
+    public function setPricePerSquareMeter(float $pricePerSquareMeter): void;
 
-    public function getTotalPrice();
+    public function getTotalPrice(): float;
 }

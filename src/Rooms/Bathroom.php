@@ -4,6 +4,6 @@ namespace ConstructionSite\Rooms;
 
 class Bathroom extends AbstractRoom
 {
-    protected static $isMain = false;
-    protected static $type = 'bathroom';
+    protected static bool $isMain = false;
+    protected static string $type = 'bathroom';
 }

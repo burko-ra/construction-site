@@ -2,15 +2,20 @@
 
 namespace ConstructionSite\Buildings;
 
+use ConstructionSite\Levels\LevelInterface;
+
 interface BuildingInterface
 {
     public function addLevel();
 
-    public function setPricePerSquareMeter($pricePerSquareMeter);
+    public function setPricePerSquareMeter(float $pricePerSquareMeter): void;
 
-    public function getPricePerSquareMeter();
+    public function getPricePerSquareMeter(): float;
 
+    /**
+     * @return array<string,LevelInterface>
+     */
     public function getLevels();
 
-    public function getLevelById($id);
+    public function getLevelById(string $id): LevelInterface;
 }
