@@ -15,7 +15,7 @@ class Level implements GetAreaInterface
     {
         $this->id = $id;
     }
-    
+
     public function getArea()
     {
         return array_reduce(
@@ -35,8 +35,8 @@ class Level implements GetAreaInterface
     {
         return $this->id;
     }
-    
-    public function getFlatById ($id)
+
+    public function getFlatById($id)
     {
         return $this->flats[$id] ?? throw new \Exception("Cannot find the flat with id = {$id}");
     }

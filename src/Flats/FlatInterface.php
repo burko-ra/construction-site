@@ -7,7 +7,7 @@ use ConstructionSite\Rooms\RoomInterface;
 interface FlatInterface
 {
     public function getId();
-    
+
     public function getRooms();
 
     public function getRoomById($id);

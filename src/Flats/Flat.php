@@ -57,8 +57,7 @@ class Flat implements FlatInterface, GetAreaInterface
     public function calculateArea()
     {
         $area = 0;
-        foreach ($this->rooms as $room)
-        {
+        foreach ($this->rooms as $room) {
             $area += $room->getArea();
         }
         return $area;
