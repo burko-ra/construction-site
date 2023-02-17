@@ -1,0 +1,11 @@
+{
+    "name": "redstone/create_room",
+    "type": "project",
+    "license": "GNU",
+    "autoload": {
+        "psr-4": {
+            "ConstructionSite\\": "src/"
+        }
+    },
+    "require": {}
+}
