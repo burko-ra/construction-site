@@ -3,10 +3,11 @@
 namespace ConstructionSite\Levels;
 
 use ConstructionSite\Buildings\GetAreaInterface;
+use ConstructionSite\Buildings\GetFlatsInterface;
 use ConstructionSite\Flats\FlatInterface;
 use ConstructionSite\Specifications\MainRoomCountSpecification;
 
-class Level implements GetAreaInterface
+class Level implements LevelInterface, GetAreaInterface, GetFlatsInterface
 {
     private $flats;
     protected $id;
