@@ -82,14 +82,14 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
          * @var array<int,GetFlatsInterface>
          */
         $levels = $this->levels;
-        $flat = array_reduce($levels, function ($acc, $level) use ($id) {
+        foreach ($levels as $level) {
             try {
                 $flat = $level->getFlatById($id);
                 return $flat;
             } catch (FlatNotFoundException $e) {
             }
-        }, null);
-        return $flat ?? throw new FlatNotFoundException("Cannot find the flat with id = {$id}");
+        }
+        throw new FlatNotFoundException("Cannot find the flat with id = {$id}");
     }
 
     public function getFlatCount(int $mainRoomCount = null): int

@@ -10,7 +10,5 @@ interface LevelInterface
 
     public function getId(): int;
 
-    public function getFlatById(string $id): FlatInterface;
-
     public function setPricePerSquareMeter(float $pricePerSquareMeter): void;
 }

@@ -18,29 +18,14 @@ abstract class AbstractRoom implements RoomInterface, GetAreaInterface
         $this->id = uniqid("room_");
     }
 
-    public function getArea(): float
-    {
-        return $this->area;
-    }
-
     public function checkIsMain(): bool
     {
         return static::$isMain;
     }
 
-    public function getType(): string
-    {
-        return static::$type;
-    }
-
     public function getId(): string
     {
         return $this->id;
-    }
-
-    public function setPricePerSquareMeter(float $pricePerSquareMeter): void
-    {
-        $this->pricePerSquareMeter = $pricePerSquareMeter;
     }
 
     public function getTotalPrice(): float
@@ -50,5 +35,21 @@ abstract class AbstractRoom implements RoomInterface, GetAreaInterface
         }
 
         return $this->pricePerSquareMeter * $this->area;
+    }
+
+    public function getType(): string
+    {
+        return static::$type;
+    }
+
+    public function setPricePerSquareMeter(float $pricePerSquareMeter): void
+    {
+        $this->pricePerSquareMeter = $pricePerSquareMeter;
+    }
+
+
+    public function getArea(): float
+    {
+        return $this->area;
     }
 }
