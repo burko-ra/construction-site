@@ -64,7 +64,8 @@ $building->setPricePerSquareMeter(1000);
 print("Стоимость квартиры без отделки: {$customFlat->getTotalPrice()}\n");
 
 //Добавляем в комнату отделку
-$bathroom = $customFlat->getRoomsByType('bathroom')[0];
+$bathrooms = $customFlat->getRoomsByType('bathroom');
+$bathroom = reset($bathrooms);
 $bathroomWithFurnishings = new RoomDecorator($bathroom);
 $bathroomWithFurnishings->addFurnishing(new BathroomTiles, 36);
 $bathroomWithFurnishings->addFurnishing(new Door);
