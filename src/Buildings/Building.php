@@ -17,7 +17,7 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
     /**
      * @var array<int,LevelInterface&\ConstructionSite\Buildings\GetFlatsInterface>
      */
-    private $levels;
+    private $levels = [];
     private float $pricePerSquareMeter;
     private SplObjectStorage $observers;
 
