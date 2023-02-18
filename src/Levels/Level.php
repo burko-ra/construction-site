@@ -14,7 +14,7 @@ class Level implements LevelInterface, GetAreaInterface, GetFlatsInterface
     /**
      * @var array<string,FlatInterface>
      */
-    private $flats;
+    private $flats = [];
     protected int $id;
 
     public function __construct(int $id)
