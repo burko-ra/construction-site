@@ -91,8 +91,12 @@ class Flat implements FlatInterface, GetAreaInterface
 
     public function getArea(): float
     {
+        /**
+         * @var array<string,GetAreaInterface>
+         */
+        $rooms = $this->rooms;
         return array_reduce(
-            $this->rooms,
+            $rooms,
             fn($acc, $item) => $acc + $item->getArea(),
             0
         );

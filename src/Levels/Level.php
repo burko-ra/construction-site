@@ -21,7 +21,7 @@ class Level implements LevelInterface, GetAreaInterface, GetFlatsInterface
     {
         $this->id = $id;
     }
-    
+
     public function addFlat(FlatInterface $flat): void
     {
         $flatId = $flat->getId();
