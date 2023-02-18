@@ -4,14 +4,17 @@ namespace ConstructionSite\Buildings;
 
 use ConstructionSite\CommonAmenities\CommonAmenityInterface;
 use ConstructionSite\Levels\LevelInterface;
-use SplObserver;
-use SplSubject;
+use ConstructionSite\Flats\FlatInterface;
 
 class BuildingDecorator implements BuildingInterface, GetAreaInterface, GetFlatsInterface
 {
-    protected BuildingInterface&GetAreaInterface $building;
+    protected BuildingInterface $building;
+    /**
+     * @var array<string,CommonAmenityInterface>
+     */
     protected $commonAmenities = [];
-    protected $basePricePerSquareMeter;
+    protected float $basePricePerSquareMeter;
+    protected float $totalPricePerSquareMeter;
 
     public function __construct(BuildingInterface $building)
     {
@@ -19,7 +22,7 @@ class BuildingDecorator implements BuildingInterface, GetAreaInterface, GetFlats
         $this->basePricePerSquareMeter = $building->getPricePerSquareMeter();
     }
 
-    public function addCommonAmenity(CommonAmenityInterface $commonAmenity)
+    public function addCommonAmenity(CommonAmenityInterface $commonAmenity): void
     {
         $id = $commonAmenity->getId();
         $this->commonAmenities[$id] = $commonAmenity;
@@ -39,31 +42,27 @@ class BuildingDecorator implements BuildingInterface, GetAreaInterface, GetFlats
         $this->building->addLevel();
     }
 
-    public function calculateTotalPricePerSquareMeter(): float
+    public function calculateTotalPricePerSquareMeter(): void
     {
         $buildingArea = $this->getArea();
         $baseTotalPrice = $this->basePricePerSquareMeter * $buildingArea;
 
-        $commonAmenitiesTotalPrice = array_reduce(
-            $this->commonAmenities,
-            fn($acc, $commonAmenity) => $acc + $commonAmenity->getPrice(),
-            0
-        );
+        $commonAmenitiesTotalPrice = $this->getCommonAmenitiesTotalPrice();
 
         $totalPrice = $baseTotalPrice + $commonAmenitiesTotalPrice;
-        return $totalPrice / $buildingArea;
+        $this->totalPricePerSquareMeter = $totalPrice / $buildingArea;
     }
 
     public function setPricePerSquareMeter(float $basePricePerSquareMeter): void
     {
-        $totalPricePerSquareMeter = $this->calculateTotalPricePerSquareMeter();
-        $this->building->setPricePerSquareMeter($totalPricePerSquareMeter);
+        $this->basePricePerSquareMeter = $basePricePerSquareMeter;
+        $this->updateTotalPricePerSquareMeter();
     }
 
-    protected function updateTotalPricePerSquareMeter()
+    protected function updateTotalPricePerSquareMeter(): void
     {
-        $totalPricePerSquareMeter = $this->calculateTotalPricePerSquareMeter();
-        $this->building->setPricePerSquareMeter($totalPricePerSquareMeter);
+        $this->calculateTotalPricePerSquareMeter();
+        $this->building->setPricePerSquareMeter($this->totalPricePerSquareMeter);
     }
 
     public function getPricePerSquareMeter(): float
@@ -73,10 +72,10 @@ class BuildingDecorator implements BuildingInterface, GetAreaInterface, GetFlats
 
     public function getTotalPricePerSquareMeter(): float
     {
-        return $this->calculateTotalPricePerSquareMeter();
+        return $this->totalPricePerSquareMeter;
     }
 
-    public function calculateCommonAmenitiesTotalPrice()
+    public function getCommonAmenitiesTotalPrice(): float
     {
         return array_reduce($this->commonAmenities, function ($acc, $item) {
             return $acc + $item->getPrice();
@@ -85,11 +84,15 @@ class BuildingDecorator implements BuildingInterface, GetAreaInterface, GetFlats
 
     public function getArea(): float
     {
-        return $this->building->getArea();
+        /**
+         * @var GetAreaInterface
+         */
+        $building = $this->building;
+        return $building->getArea();
     }
 
     /**
-     * @return array<string,LevelInterface>
+     * @return array<int,LevelInterface>
      */
     public function getLevels()
     {
@@ -101,7 +104,10 @@ class BuildingDecorator implements BuildingInterface, GetAreaInterface, GetFlats
         return $this->building->getLevelById($id);
     }
 
-    public function getFlats($mainRoomCount = null)
+    /**
+     * @return array<string,FlatInterface>
+     */
+    public function getFlats(int $mainRoomCount = null)
     {
         return array_reduce(
             $this->building->getLevels(),

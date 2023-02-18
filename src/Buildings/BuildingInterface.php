@@ -13,7 +13,7 @@ interface BuildingInterface
     public function getPricePerSquareMeter(): float;
 
     /**
-     * @return array<string,LevelInterface>
+     * @return array<int,LevelInterface>
      */
     public function getLevels();
 

@@ -4,6 +4,7 @@ namespace ConstructionSite\Buildings;
 
 use ConstructionSite\Levels\LevelFactory;
 use ConstructionSite\Levels\LevelInterface;
+use ConstructionSite\Flats\FlatInterface;
 use SplObjectStorage;
 use SplObserver;
 use SplSubject;
@@ -12,7 +13,7 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
 {
     private LevelFactory $levelFactory;
     /**
-     * @var array<string,LevelInterface&GetAreaInterface&GetFlatsInterface>
+     * @var array<int,LevelInterface>
      */
     private $levels;
     private float $pricePerSquareMeter;
@@ -31,17 +32,21 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
         $this->levels[$levelId] = $level;
     }
 
-    public function getArea(): int
+    public function getArea(): float
     {
+        /**
+         * @var array<int,GetAreaInterface>
+         */
+        $levels = $this->levels;
         return array_reduce(
-            $this->levels,
+            $levels,
             fn($acc, $item) => $acc + $item->getArea(),
             0
         );
     }
 
     /**
-     * @return array<string,LevelInterface&GetAreaInterface&GetFlatsInterface>
+     * @return array<int,LevelInterface>
      */
     public function getLevels()
     {
@@ -53,14 +58,18 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
      */
     public function getFlats(int $mainRoomCount = null)
     {
+        /**
+         * @var array<int,GetFlatsInterface>
+         */
+        $levels = $this->levels;
         return array_reduce(
-            $this->levels,
+            $levels,
             fn($acc, $level) => array_merge($acc, $level->getFlats($mainRoomCount)),
             []
         );
     }
 
-    public function getLevelById(string $id): LevelInterface
+    public function getLevelById(int $id): LevelInterface
     {
         return $this->levels[$id];
     }
