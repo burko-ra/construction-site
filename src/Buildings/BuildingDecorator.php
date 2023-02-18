@@ -111,13 +111,26 @@ class BuildingDecorator implements BuildingInterface, GetAreaInterface, GetFlats
         return count($this->getFlats($mainRoomCount));
     }
 
+    public function getFlatById(string $id): FlatInterface
+    {
+        /**
+         * @var GetFlatsInterface
+         */
+        $building = $this->building;
+        return $building->getFlatById($id);
+    }
+
     /**
      * @return array<string,FlatInterface>
      */
     public function getFlats(int $mainRoomCount = null)
     {
+        /**
+         * @var array<int,GetFlatsInterface>
+         */
+        $levels = $this->building->getLevels();
         return array_reduce(
-            $this->building->getLevels(),
+            $levels,
             fn($acc, $level) => array_merge($acc, $level->getFlats($mainRoomCount)),
             []
         );

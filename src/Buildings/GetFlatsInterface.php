@@ -8,6 +8,8 @@ interface GetFlatsInterface
 {
     public function getFlatCount(int $mainRoomCount = null): int;
 
+    public function getFlatById(string $id): FlatInterface;
+
     /**
      * @return array<string,FlatInterface>
      */

@@ -2,9 +2,11 @@
 
 namespace ConstructionSite\Buildings;
 
+use ConstructionSite\Exceptions\FlatNotFoundException;
 use ConstructionSite\Levels\LevelFactory;
 use ConstructionSite\Levels\LevelInterface;
 use ConstructionSite\Flats\FlatInterface;
+use ConstructionSite\Buildings\GetFlatsInterface;
 use SplObjectStorage;
 use SplObserver;
 use SplSubject;
@@ -13,7 +15,7 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
 {
     private LevelFactory $levelFactory;
     /**
-     * @var array<int,LevelInterface>
+     * @var array<int,LevelInterface&\ConstructionSite\Buildings\GetFlatsInterface>
      */
     private $levels;
     private float $pricePerSquareMeter;
@@ -32,7 +34,7 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
         $this->levels[$levelId] = $level;
     }
 
-    public function getLevelById(int $id): LevelInterface
+    public function getLevelById(int $id): LevelInterface&GetFlatsInterface
     {
         return $this->levels[$id];
     }
@@ -74,6 +76,21 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
         );
     }
 
+    public function getFlatById(string $id): FlatInterface
+    {
+        /**
+         * @var array<int,GetFlatsInterface>
+         */
+        $levels = $this->levels;
+        $flat = array_reduce($levels, function ($acc, $level) use ($id) {
+            try {
+                $flat = $level->getFlatById($id);
+                return $flat;
+            } catch (FlatNotFoundException $e) {
+            }
+        }, null);
+        return $flat ?? throw new FlatNotFoundException("Cannot find the flat with id = {$id}");
+    }
 
     public function getFlatCount(int $mainRoomCount = null): int
     {

@@ -3,13 +3,14 @@
 namespace ConstructionSite\Levels;
 
 use ConstructionSite\Levels\LevelInterface;
+use ConstructionSite\Buildings\GetFlatsInterface;
 
 class LevelFactory
 {
     private int $lastLevelId = 0;
 
     /**
-     * @return LevelInterface
+     * @return LevelInterface&\ConstructionSite\Buildings\GetFlatsInterface
      */
     public function createLevel()
     {

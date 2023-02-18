@@ -24,7 +24,7 @@ abstract class AbstractFurnishing implements FurnishingInterface
     {
         return $this->id;
     }
-    
+
     public function getTotalPrice(): float
     {
         return $this->count * $this->unitPrice;

@@ -4,6 +4,8 @@ namespace ConstructionSite\Levels;
 
 use ConstructionSite\Buildings\GetAreaInterface;
 use ConstructionSite\Buildings\GetFlatsInterface;
+use ConstructionSite\Exceptions\FlatNotException;
+use ConstructionSite\Exceptions\FlatNotFoundException;
 use ConstructionSite\Flats\FlatInterface;
 use ConstructionSite\Specifications\MainRoomCountSpecification;
 
@@ -49,7 +51,7 @@ class Level implements LevelInterface, GetAreaInterface, GetFlatsInterface
 
     public function getFlatById(string $id): FlatInterface
     {
-        return $this->flats[$id] ?? throw new \Exception("Cannot find the flat with id = {$id}");
+        return $this->flats[$id] ?? throw new FlatNotFoundException("Cannot find the flat with id = {$id}");
     }
 
     public function addFlat(FlatInterface $flat): void
