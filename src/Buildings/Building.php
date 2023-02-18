@@ -111,12 +111,4 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
             $observer->update($this);
         }
     }
-
-    /**
-     * @return SplObjectStorage
-     */
-    public function getObservers()
-    {
-        return $this->observers;
-    }
 }
