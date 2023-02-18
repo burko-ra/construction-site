@@ -12,6 +12,9 @@ use ConstructionSite\Rooms\Restroom;
 
 class FlatBuilder implements FlatBuilderInterface
 {
+    /**
+     * @var FlatInterface
+     */
     private $flat;
 
     public function __construct(FlatInterface $flat = null)
@@ -19,6 +22,9 @@ class FlatBuilder implements FlatBuilderInterface
         $this->reset($flat);
     }
 
+    /**
+     * @return FlatInterface
+     */
     public function getFlat()
     {
         $flat = $this->flat;
@@ -26,42 +32,42 @@ class FlatBuilder implements FlatBuilderInterface
         return $flat;
     }
 
-    public function produceBedroom($area = 15)
+    public function produceBedroom(?float $area = 15): void
     {
         $this->flat->addRoom(new Bedroom($area));
     }
 
-    public function produceBalcony($area = 5)
+    public function produceBalcony(?float $area = 5): void
     {
         $this->flat->addRoom(new Balcony($area));
     }
 
-    public function produceBathroom($area = 10)
+    public function produceBathroom(?float $area = 10): void
     {
         $this->flat->addRoom(new Bathroom($area));
     }
 
-    public function produceKitchen($area = 15)
+    public function produceKitchen(?float $area = 15): void
     {
         $this->flat->addRoom(new Kitchen($area));
     }
 
-    public function produceLivingRoom($area = 25)
+    public function produceLivingRoom(?float $area = 25): void
     {
         $this->flat->addRoom(new LivingRoom($area));
     }
 
-    public function produceRestroom($area = 5)
+    public function produceRestroom(?float $area = 5): void
     {
         $this->flat->addRoom(new Restroom($area));
     }
 
-    public function produceHallway($area = 5)
+    public function produceHallway(?float $area = 5): void
     {
         $this->flat->addRoom(new Hallway($area));
     }
 
-    public function reset(FlatInterface $flat = null)
+    public function reset(FlatInterface $flat = null): void
     {
         $this->flat = $flat ?? new Flat();
     }

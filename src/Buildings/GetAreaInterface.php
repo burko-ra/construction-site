@@ -4,5 +4,5 @@ namespace ConstructionSite\Buildings;
 
 interface GetAreaInterface
 {
-    public function getArea();
+    public function getArea(): float;
 }

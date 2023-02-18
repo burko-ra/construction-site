@@ -4,5 +4,5 @@ namespace ConstructionSite\Furnishings;
 
 class Door extends AbstractFurnishing
 {
-    protected $unitPrice = 15;
+    protected float $unitPrice = 15;
 }

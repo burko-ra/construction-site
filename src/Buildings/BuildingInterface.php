@@ -6,7 +6,7 @@ use ConstructionSite\Levels\LevelInterface;
 
 interface BuildingInterface
 {
-    public function addLevel();
+    public function addLevel(): void;
 
     public function setPricePerSquareMeter(float $pricePerSquareMeter): void;
 
@@ -17,5 +17,5 @@ interface BuildingInterface
      */
     public function getLevels();
 
-    public function getLevelById(string $id): LevelInterface;
+    public function getLevelById(int $id): LevelInterface;
 }

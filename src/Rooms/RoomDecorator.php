@@ -18,7 +18,7 @@ class RoomDecorator implements RoomInterface
         $this->room = $room;
     }
 
-    public function addFurnishing(FurnishingInterface $furnishing, float $count = 1): void
+    public function addFurnishing(FurnishingInterface $furnishing, int $count = 1): void
     {
         $furnishing->setCount($count);
         $this->furnishings[] = $furnishing;

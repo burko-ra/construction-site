@@ -4,5 +4,5 @@ namespace ConstructionSite\Furnishings;
 
 class Bath extends AbstractFurnishing
 {
-    protected $unitPrice = 25;
+    protected float $unitPrice = 25;
 }

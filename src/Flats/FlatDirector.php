@@ -10,7 +10,7 @@ class FlatDirector
     {
         $this->flatBuilder = $flatBuilder;
     }
-    public function buildOneRoomFlat()
+    public function buildOneRoomFlat(): FlatInterface
     {
         $this->flatBuilder->reset();
         $this->flatBuilder->produceLivingRoom();
@@ -21,7 +21,7 @@ class FlatDirector
         return $this->flatBuilder->getFlat();
     }
 
-    public function buildTwoRoomFlat()
+    public function buildTwoRoomFlat(): FlatInterface
     {
         $this->flatBuilder->reset();
         $this->flatBuilder->produceLivingRoom();
@@ -33,7 +33,7 @@ class FlatDirector
         return $this->flatBuilder->getFlat();
     }
 
-    public function buildThreeRoomFlat()
+    public function buildThreeRoomFlat(): FlatInterface
     {
         $this->flatBuilder->reset();
         $this->flatBuilder->produceLivingRoom();

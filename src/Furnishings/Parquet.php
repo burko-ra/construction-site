@@ -4,5 +4,5 @@ namespace ConstructionSite\Furnishings;
 
 class Parquet extends AbstractFurnishing
 {
-    protected $unitPrice = 3;
+    protected float $unitPrice = 3;
 }

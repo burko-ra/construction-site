@@ -6,15 +6,21 @@ use ConstructionSite\Flats\FlatInterface;
 
 interface LevelInterface
 {
-    public function getFlats($mainRoomCount = null);
+    /**
+     * @return array<string,FlatInterface>
+     */
+    public function getFlats(int $mainRoomCount = null);
 
-    public function getId();
+    public function getId(): int;
 
-    public function getFlatById($id);
+    /**
+     * @return FlatInterface
+     */
+    public function getFlatById(string $id);
 
-    public function addFlat(FlatInterface $flat);
+    public function addFlat(FlatInterface $flat): void;
 
-    public function getFlatCount($mainRoomCount = null);
+    public function getFlatCount(int $mainRoomCount = null): int;
 
-    public function setPricePerSquareMeter($pricePerSquareMeter);
+    public function setPricePerSquareMeter(float $pricePerSquareMeter): void;
 }

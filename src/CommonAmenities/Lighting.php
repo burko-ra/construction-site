@@ -4,5 +4,5 @@ namespace ConstructionSite\CommonAmenities;
 
 class Lighting extends AbstractCommonAmenity
 {
-    protected $price = 4000;
+    protected float $price = 4000;
 }

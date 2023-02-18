@@ -4,5 +4,5 @@ namespace ConstructionSite\CommonAmenities;
 
 class Elevator extends AbstractCommonAmenity
 {
-    protected $price = 10000;
+    protected float $price = 10000;
 }

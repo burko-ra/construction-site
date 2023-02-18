@@ -4,5 +4,5 @@ namespace ConstructionSite\Furnishings;
 
 class Window extends AbstractFurnishing
 {
-    protected $unitPrice = 30;
+    protected float $unitPrice = 30;
 }

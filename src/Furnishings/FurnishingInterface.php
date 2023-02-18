@@ -4,13 +4,13 @@ namespace ConstructionSite\Furnishings;
 
 interface FurnishingInterface
 {
-    public function getUnitPrice();
+    public function getUnitPrice(): float;
 
-    public function getCount();
+    public function getCount(): int;
 
-    public function setCount($count);
+    public function setCount(int $count): void;
 
-    public function getTotalPrice();
+    public function getTotalPrice(): float;
 
-    public function getId();
+    public function getId(): string;
 }

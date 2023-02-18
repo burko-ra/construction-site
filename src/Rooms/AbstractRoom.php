@@ -6,13 +6,13 @@ use ConstructionSite\Buildings\GetAreaInterface;
 
 abstract class AbstractRoom implements RoomInterface, GetAreaInterface
 {
-    private $area;
-    private $id;
+    private float $area;
+    private string $id;
     protected static bool $isMain;
     protected static string $type;
-    protected $pricePerSquareMeter;
+    protected float $pricePerSquareMeter;
 
-    public function __construct($area)
+    public function __construct(float $area)
     {
         $this->area = $area;
         $this->id = uniqid("room_");
@@ -38,7 +38,7 @@ abstract class AbstractRoom implements RoomInterface, GetAreaInterface
         return $this->id;
     }
 
-    public function setPricePerSquareMeter($pricePerSquareMeter): void
+    public function setPricePerSquareMeter(float $pricePerSquareMeter): void
     {
         $this->pricePerSquareMeter = $pricePerSquareMeter;
     }

@@ -4,5 +4,5 @@ namespace ConstructionSite\Furnishings;
 
 class BathroomTiles extends AbstractFurnishing
 {
-    protected $unitPrice = 5;
+    protected float $unitPrice = 5;
 }

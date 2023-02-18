@@ -4,7 +4,7 @@ namespace ConstructionSite\CommonAmenities;
 
 interface CommonAmenityInterface
 {
-    public function getId();
+    public function getId(): string;
 
-    public function getPrice();
+    public function getPrice(): float;
 }

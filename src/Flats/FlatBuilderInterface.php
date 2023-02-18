@@ -2,23 +2,28 @@
 
 namespace ConstructionSite\Flats;
 
+use ConstructionSite\Flats\FlatInterface;
+
 interface FlatBuilderInterface
 {
+    /**
+     * @return FlatInterface
+     */
     public function getFlat();
 
-    public function produceBedroom(int $area = null);
+    public function produceBedroom(float $area = null): void;
 
-    public function produceBalcony(int $area = null);
+    public function produceBalcony(float $area = null): void;
 
-    public function produceBathroom(int $area = null);
+    public function produceBathroom(float $area = null): void;
 
-    public function produceKitchen(int $area = null);
+    public function produceKitchen(float $area = null): void;
 
-    public function produceLivingRoom(int $area = null);
+    public function produceLivingRoom(float $area = null): void;
 
-    public function produceRestroom(int $area = null);
+    public function produceRestroom(float $area = null): void;
 
-    public function produceHallway(int $area = null);
+    public function produceHallway(float $area = null): void;
 
-    public function reset(FlatInterface $flat = null);
+    public function reset(FlatInterface $flat = null): void;
 }
