@@ -4,7 +4,7 @@ namespace ConstructionSite\Furnishings;
 
 interface FurnishingInterface
 {
-    public function getCount(): int;
+    public function getCount(): float;
 
     public function getId(): string;
 

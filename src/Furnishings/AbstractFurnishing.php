@@ -7,16 +7,16 @@ use ConstructionSite\Traits\CalculationTrait;
 abstract class AbstractFurnishing implements FurnishingInterface
 {
     protected float $unitPrice;
-    protected int $count;
+    protected float $count;
     protected string $id;
 
-    public function __construct($count = 1)
+    public function __construct(float $count = 1)
     {
         $this->id = uniqid("furnishing_");
         $this->count = $count;
     }
 
-    public function getCount(): int
+    public function getCount(): float
     {
         return $this->count;
     }
