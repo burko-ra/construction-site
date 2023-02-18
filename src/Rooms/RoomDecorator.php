@@ -4,6 +4,7 @@ namespace ConstructionSite\Rooms;
 
 use ConstructionSite\Furnishings\Furnishing;
 use ConstructionSite\Furnishings\FurnishingInterface;
+use ConstructionSite\Buildings\GetAreaInterface;
 
 class RoomDecorator implements RoomInterface
 {
@@ -18,9 +19,8 @@ class RoomDecorator implements RoomInterface
         $this->room = $room;
     }
 
-    public function addFurnishing(FurnishingInterface $furnishing, int $count = 1): void
+    public function addFurnishing(FurnishingInterface $furnishing): void
     {
-        $furnishing->setCount($count);
         $this->furnishings[] = $furnishing;
     }
 
@@ -39,7 +39,11 @@ class RoomDecorator implements RoomInterface
 
     public function getArea(): float
     {
-        return $this->room->getArea();
+        /**
+         * @var GetAreaInterface
+         */
+        $room = $this->room;
+        return $room->getArea();
     }
 
     public function checkIsMain(): bool

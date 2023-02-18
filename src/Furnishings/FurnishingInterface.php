@@ -11,6 +11,4 @@ interface FurnishingInterface
     public function getTotalPrice(): float;
 
     public function getUnitPrice(): float;
-
-    public function setCount(int $count): void;
 }

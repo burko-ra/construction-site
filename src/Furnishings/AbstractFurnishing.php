@@ -10,9 +10,10 @@ abstract class AbstractFurnishing implements FurnishingInterface
     protected int $count;
     protected string $id;
 
-    public function __construct()
+    public function __construct($count = 1)
     {
         $this->id = uniqid("furnishing_");
+        $this->count = $count;
     }
 
     public function getCount(): int
@@ -35,7 +36,7 @@ abstract class AbstractFurnishing implements FurnishingInterface
         return $this->unitPrice;
     }
 
-    public function setCount(int $count): void
+    protected function setCount(int $count): void
     {
         $this->count = $count;
     }

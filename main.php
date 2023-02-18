@@ -67,8 +67,8 @@ print("Стоимость квартиры без отделки: {$customFlat->
 $bathrooms = $customFlat->getRoomsByType('bathroom');
 $bathroom = reset($bathrooms);
 $bathroomWithFurnishings = new RoomDecorator($bathroom);
-$bathroomWithFurnishings->addFurnishing(new BathroomTiles, 36);
-$bathroomWithFurnishings->addFurnishing(new Door);
+$bathroomWithFurnishings->addFurnishing(new BathroomTiles(36));
+$bathroomWithFurnishings->addFurnishing(new Door());
 $customFlat->updateRoom($bathroomWithFurnishings);
 
 //Рассчитываем стоимость квартиры
