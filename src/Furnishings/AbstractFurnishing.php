@@ -15,9 +15,19 @@ abstract class AbstractFurnishing implements FurnishingInterface
         $this->id = uniqid("furnishing_");
     }
 
+    public function getCount(): int
+    {
+        return $this->count;
+    }
+
     public function getId(): string
     {
         return $this->id;
+    }
+    
+    public function getTotalPrice(): float
+    {
+        return $this->count * $this->unitPrice;
     }
 
     public function getUnitPrice(): float
@@ -25,18 +35,8 @@ abstract class AbstractFurnishing implements FurnishingInterface
         return $this->unitPrice;
     }
 
-    public function getCount(): int
-    {
-        return $this->count;
-    }
-
     public function setCount(int $count): void
     {
         $this->count = $count;
-    }
-
-    public function getTotalPrice(): float
-    {
-        return $this->count * $this->unitPrice;
     }
 }

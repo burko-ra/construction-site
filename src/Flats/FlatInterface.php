@@ -6,29 +6,27 @@ use ConstructionSite\Rooms\RoomInterface;
 
 interface FlatInterface
 {
+    public function addRoom(RoomInterface $room): void;
+
     public function getId(): string;
 
-    /**
-     * @return array<string,RoomInterface>
-     */
-    public function getRooms();
+    public function getMainRoomCount(): int;
 
     public function getRoomById(string $id): RoomInterface;
 
     /**
      * @return array<string,RoomInterface>
      */
+    public function getRooms();
+
+    /**
+     * @return array<string,RoomInterface>
+     */
     public function getRoomsByType(string $type);
 
-    public function getMainRoomCount(): int;
-
-    public function calculateArea(): float;
-
-    public function addRoom(RoomInterface $room): void;
-
-    public function updateRoom(RoomInterface $room): void;
+    public function getTotalPrice(): float;
 
     public function setPricePerSquareMeter(float $pricePerSquareMeter): void;
 
-    public function getTotalPrice(): float;
+    public function updateRoom(RoomInterface $room): void;
 }

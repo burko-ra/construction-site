@@ -8,14 +8,14 @@ interface BuildingInterface
 {
     public function addLevel(): void;
 
-    public function setPricePerSquareMeter(float $pricePerSquareMeter): void;
-
-    public function getPricePerSquareMeter(): float;
+    public function getLevelById(int $id): LevelInterface;
 
     /**
      * @return array<int,LevelInterface>
      */
     public function getLevels();
 
-    public function getLevelById(int $id): LevelInterface;
+    public function getPricePerSquareMeter(): float;
+
+    public function setPricePerSquareMeter(float $pricePerSquareMeter): void;
 }

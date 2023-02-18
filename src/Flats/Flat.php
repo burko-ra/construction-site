@@ -19,18 +19,33 @@ class Flat implements FlatInterface, GetAreaInterface
         $this->id = uniqid("flat_");
     }
 
+    public function addRoom(RoomInterface $room): void
+    {
+        $roomId = $room->getId();
+        $this->rooms[$roomId] = $room;
+        $this->calculateMainRoomCount();
+    }
+
+    protected function calculateMainRoomCount(): void
+    {
+        $this->mainRoomCount = array_reduce($this->rooms, function ($acc, $item) {
+            return ($item->checkIsMain() ? 1 : 0) + $acc;
+        }, 0);
+    }
+
     public function getId(): string
     {
         return $this->id;
     }
 
-    public function getArea(): float
+    public function getMainRoomCount(): int
     {
-        return array_reduce(
-            $this->rooms,
-            fn($acc, $item) => $acc + $item->getArea(),
-            0
-        );
+        return $this->mainRoomCount;
+    }
+
+    public function getRoomById(string $id): RoomInterface
+    {
+        return $this->rooms[$id] ?? throw new \Exception("Cannot find the room with id = {$id}");
     }
 
     /**
@@ -39,11 +54,6 @@ class Flat implements FlatInterface, GetAreaInterface
     public function getRooms()
     {
         return $this->rooms;
-    }
-
-    public function getRoomById(string $id): RoomInterface
-    {
-        return $this->rooms[$id] ?? throw new \Exception("Cannot find the room with id = {$id}");
     }
 
     /**
@@ -57,40 +67,9 @@ class Flat implements FlatInterface, GetAreaInterface
         );
     }
 
-    public function getMainRoomCount(): int
+    public function getTotalPrice(): float
     {
-        return $this->mainRoomCount;
-    }
-
-    public function calculateArea(): float
-    {
-        $area = 0;
-        foreach ($this->rooms as $room) {
-            $area += $room->getArea();
-        }
-        return $area;
-    }
-
-    public function addRoom(RoomInterface $room): void
-    {
-        $roomId = $room->getId();
-        $this->rooms[$roomId] = $room;
-        $this->calculateMainRoomCount();
-    }
-
-    public function updateRoom(RoomInterface $room): void
-    {
-        $roomId = $room->getId();
-        $roomToUpdate = $this->getRoomById($roomId);
-        $this->rooms[$roomId] = $room;
-        $this->calculateMainRoomCount();
-    }
-
-    protected function calculateMainRoomCount(): void
-    {
-        $this->mainRoomCount = array_reduce($this->rooms, function ($acc, $item) {
-            return ($item->checkIsMain() ? 1 : 0) + $acc;
-        }, 0);
+        return array_reduce($this->rooms, fn($acc, $room) => $acc + $room->getTotalPrice(), 0);
     }
 
     public function setPricePerSquareMeter(float $pricePerSquareMeter): void
@@ -101,8 +80,21 @@ class Flat implements FlatInterface, GetAreaInterface
         );
     }
 
-    public function getTotalPrice(): float
+    public function updateRoom(RoomInterface $room): void
     {
-        return array_reduce($this->rooms, fn($acc, $room) => $acc + $room->getTotalPrice(), 0);
+        $roomId = $room->getId();
+        $roomToUpdate = $this->getRoomById($roomId);
+        $this->rooms[$roomId] = $room;
+        $this->calculateMainRoomCount();
+    }
+
+
+    public function getArea(): float
+    {
+        return array_reduce(
+            $this->rooms,
+            fn($acc, $item) => $acc + $item->getArea(),
+            0
+        );
     }
 }

@@ -32,6 +32,35 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
         $this->levels[$levelId] = $level;
     }
 
+    public function getLevelById(int $id): LevelInterface
+    {
+        return $this->levels[$id];
+    }
+
+    /**
+     * @return array<int,LevelInterface>
+     */
+    public function getLevels()
+    {
+        return $this->levels;
+    }
+
+    public function getPricePerSquareMeter(): float
+    {
+        return $this->pricePerSquareMeter;
+    }
+
+    public function setPricePerSquareMeter(float $pricePerSquareMeter): void
+    {
+        $this->pricePerSquareMeter = $pricePerSquareMeter;
+        array_map(
+            fn($level) => $level->setPricePerSquareMeter($pricePerSquareMeter),
+            $this->levels
+        );
+        $this->notify();
+    }
+
+
     public function getArea(): float
     {
         /**
@@ -45,12 +74,10 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
         );
     }
 
-    /**
-     * @return array<int,LevelInterface>
-     */
-    public function getLevels()
+
+    public function getFlatCount(int $mainRoomCount = null): int
     {
-        return $this->levels;
+        return count($this->getFlats($mainRoomCount));
     }
 
     /**
@@ -69,30 +96,6 @@ class Building implements BuildingInterface, GetAreaInterface, GetFlatsInterface
         );
     }
 
-    public function getLevelById(int $id): LevelInterface
-    {
-        return $this->levels[$id];
-    }
-
-    public function setPricePerSquareMeter(float $pricePerSquareMeter): void
-    {
-        $this->pricePerSquareMeter = $pricePerSquareMeter;
-        array_map(
-            fn($level) => $level->setPricePerSquareMeter($pricePerSquareMeter),
-            $this->levels
-        );
-        $this->notify();
-    }
-
-    public function getPricePerSquareMeter(): float
-    {
-        return $this->pricePerSquareMeter;
-    }
-
-    public function getFlatCount(int $mainRoomCount = null): int
-    {
-        return count($this->getFlats($mainRoomCount));
-    }
 
     public function attach(SplObserver $observer): void
     {
