@@ -10,3 +10,6 @@ lint-fix:
 
 test:
 	composer exec --verbose phpunit tests
+
+run:
+	docker run -d --rm --name construction-site 40b4066a9292
