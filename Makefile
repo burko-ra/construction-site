@@ -11,5 +11,8 @@ lint-fix:
 test:
 	composer exec --verbose phpunit tests
 
+build:
+	docker build -t php-composer:1.0 .
+
 run:
-	docker run -d --rm --name construction-site 40b4066a9292
+	docker run -ti --rm --volume $(shell pwd)/:/app php-composer:1.0 composer exec --verbose phpunit tests
